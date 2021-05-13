@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const exphbs  = require('express-handlebars')
 const app = express()
 const port = 3000
 const hostname = '127.0.0.1'
@@ -8,17 +9,21 @@ const hostname = '127.0.0.1'
 //public dosyalara erişmek için kullanılır.
 app.use(express.static('public'))
 
+app.engine('handlebars', exphbs())
+app.set('view engine', 'handlebars')
+
 
 app.get('/',(req,res) => {
-    res.sendFile(path.resolve(__dirname, 'site/index.html'))
+    //using index handlebars...
+    res.render('site/index')
 })
 
 app.get('/about',(req,res) => {
-    res.sendFile(path.resolve(__dirname, 'site/about.html'))
+    res.render('site/about')
 })
 
 app.get('/blog',(req,res) => {
-    res.sendFile(path.resolve(__dirname, 'site/blog.html'))
+    res.render('site/blog')
 })
 
 app.listen(port,hostname, () => {
