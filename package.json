@@ -1,0 +1,24 @@
+{
+  "name": "news-express-website",
+  "version": "1.0.0",
+  "description": "My software project management course midterm project.",
+  "main": "app.js",
+  "scripts": {
+    "boot":"nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halilozat/news-express-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/halilozat/news-express-website/issues"
+  },
+  "homepage": "https://github.com/halilozat/news-express-website#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}
