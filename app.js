@@ -9,8 +9,7 @@ const hostname = '127.0.0.1'
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
-
-
+const generateDate = require('./helpers/generateDate').generateDate
 
 mongoose.connect('mongodb://127.0.0.1/nodenews_db', {
   useNewUrlParser: true,
@@ -24,7 +23,10 @@ app.use(fileUpload())
 //public dosyalara erişmek için kullanılır.
 app.use(express.static('public'))
 
-app.engine('handlebars', exphbs())
+
+
+
+app.engine('handlebars', exphbs({helpers:{generateDate:generateDate}}))
 app.set('view engine', 'handlebars')
 
 
