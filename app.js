@@ -1,5 +1,8 @@
 const express = require('express')
 const exphbs  = require('express-handlebars')
+const Handlebars = require('handlebars')
+const expressHandlebars = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const app = express()
 const port = 3000
 const hostname = '127.0.0.1'
@@ -40,5 +43,5 @@ app.use('/posts',posts)
 
 
 app.listen(port,hostname, () => {
-    console.log('Server is living!');
+    console.log(` Example app listening, http://${hostname}:${port}/`);
 } )

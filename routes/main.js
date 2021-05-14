@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const Post = require('../models/Post')
 
 router.get('/',(req,res) => {
     //using index handlebars...
@@ -11,9 +11,14 @@ router.get('/about',(req,res) => {
     res.render('site/about')
 })
 
-router.get('/blog',(req,res) => {
-    res.render('site/blog')
-})
+router.get('/blog', (req, res) => {
+    Post.find({}).then(posts => {
+      res.render('site/blog', {
+        posts:posts.map(item => item.toJSON())
+      });
+    });
+  });
+  
 
 router.get('/contact',(req,res) => {
     res.render('site/contact')
