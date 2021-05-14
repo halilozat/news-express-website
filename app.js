@@ -4,11 +4,10 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const app = express()
-const port = 3005
+const port = 3000
 const hostname = '127.0.0.1'
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
-const fileUpload = require('express-fileupload')
 
 
 
@@ -18,8 +17,6 @@ mongoose.connect('mongodb://127.0.0.1/nodenews_db', {
   useFindAndModify: false,
   useCreateIndex: true
 });
-
-app.use(fileUpload())
 
 //public dosyalara erişmek için kullanılır.
 app.use(express.static('public'))
