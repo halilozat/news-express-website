@@ -12,6 +12,7 @@ const fileUpload = require('express-fileupload')
 const generateDate = require('./helpers/generateDate').generateDate
 const expressSession = require('express-session')
 const connectMongo = require('connect-mongo')
+const methodOverride = require('method-override')
 
 mongoose.connect('mongodb://127.0.0.1/nodenews_db', {
   useNewUrlParser: true,
@@ -40,10 +41,8 @@ app.use((req, res, next) => {
 
 
 app.use(fileUpload())
-
-//public dosyalara erişmek için kullanılır.
 app.use(express.static('public'))
-
+app.use(methodOverride('_method'))
 
 //DISPLAY LINK Middleware
 
