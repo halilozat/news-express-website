@@ -82,9 +82,13 @@ app.use(bodyParser.json())
 const main = require('./routes/main')
 const posts = require('./routes/posts')
 const users = require('./routes/users')
+const admin = require('./routes/admin/index')
+
+
 app.use('/', main)
 app.use('/posts', posts)
 app.use('/users', users)
+app.use('/admin', admin)
 
 
 
