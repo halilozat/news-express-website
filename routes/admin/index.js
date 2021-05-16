@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Category = require('../../models/Category')
+const Post = require('../../models/Post')
 
 router.get('/', (req, res) => {
     res.render('admin/index')
@@ -12,6 +13,19 @@ router.get('/categories', (req, res) => {
         res.render('admin/categories', {categories:categories})
 
     })
+})
+
+router.get('/posts', (req, res) => {
+
+    Post.find({}).populate({path:'category', model:Category}).sort({$natural:-1}).then(posts => {
+
+          res.render('admin/posts', {
+            posts:posts.map(item => item.toJSON())
+          });
+
+        
+      });
+
 })
 
 router.post('/categories', (req, res) => {
