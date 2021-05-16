@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const generateDate = require('./helpers/generateDate').generateDate
+const expressSession = require('express-session')
+const connectMongo = require('connect-mongo')
 
 mongoose.connect('mongodb://127.0.0.1/nodenews_db', {
   useNewUrlParser: true,
@@ -17,6 +19,15 @@ mongoose.connect('mongodb://127.0.0.1/nodenews_db', {
   useFindAndModify: false,
   useCreateIndex: true
 });
+
+const MongoStore = connectMongo(expressSession)
+
+app.use(expressSession({
+  secret: 'test',
+  resave:false,
+  saveUninitialized: true,
+   store: new MongoStore({mongooseConnection: mongoose.connection})
+}))
 
 app.use(fileUpload())
 
