@@ -19,10 +19,14 @@ router.get('/:id',(req,res) => {
 
     Post.findById(req.params.id).populate({path:'author', model:User}).lean().then(post => {
         Category.find({}).then(categories =>{
-            res.render('site/post', {
-                post:post,
-              categories:categories.map(item => item.toJSON()),
-            });
+            Post.find({}).populate({path:'author', model:User}).sort({$natural:-1}).then(posts => {
+                res.render('site/post', {
+                    post: post,
+                    categories: categories.map(item => item.toJSON()),
+                    posts: posts.map(item => item.toJSON())
+                })
+            })
+            
           })
     })
 

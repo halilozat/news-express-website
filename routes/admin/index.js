@@ -4,6 +4,7 @@ const router = express.Router()
 const Category = require('../../models/Category')
 const Post = require('../../models/Post')
 
+
 router.get('/', (req, res) => {
     res.render('admin/index')
 })
