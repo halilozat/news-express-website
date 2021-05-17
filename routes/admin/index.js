@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const router = express.Router()
 const Category = require('../../models/Category')
 const Post = require('../../models/Post')
@@ -43,5 +44,40 @@ router.delete('/categories/:id', (req, res) => {
         res.redirect('/admin/categories')
     })
 })
+
+router.delete('/posts/:id', (req, res) => {
+    //deleteone kullan!
+    Post.remove({_id: req.params.id}).lean().then(() =>{
+        res.redirect('/admin/posts')
+    })
+})
+
+router.get('/posts/edit/:id', (req, res) => {
+    Post.findOne({_id:req.params.id}).lean().then(post => {
+        Category.find({}).lean().then(categories => {
+            res.render('admin/editpost', {post:post, categories:categories})
+        })
+    })
+    
+})
+
+router.put('/posts/:id', (req,res) => {
+    let post_image = req.files.post_image
+    post_image.mv(path.resolve(__dirname, '../../public/img/postimages', post_image.name))
+
+    Post.findOne({_id:req.params.id}).then(post => {
+        post.title = req.body.title
+        post.content = req.body.content
+        post.date = req.body.date
+        post.category = req.body.category
+        post.post_image = `/img/postimages/${post_image.name}`
+
+        post.save().then(post => {
+            res.redirect('/admin/posts')
+        })
+    })
+})
+
+
 
 module.exports = router
