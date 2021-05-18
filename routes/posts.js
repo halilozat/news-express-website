@@ -15,14 +15,56 @@ router.get('/new',(req,res) => {
     })
 })
 
+
+router.get('/category/:categoryId', (req,res) => {
+    Post.find({category: req.params.categoryId}).populate({path:'category', model:Category})
+    .then(posts =>{
+        Category.aggregate([{
+            $lookup: {
+              from: 'posts',
+              localField: '_id',
+              foreignField: 'category',
+              as: 'posts'
+            }
+          },
+          {
+            $project: {
+              _id: 1,
+              name: 1,
+              num_of_posts: { $size: '$posts' }
+            }
+          }
+          ]).then(categories =>{
+              res.render('site/blog', {posts:posts.map(item => item.toJSON()), categories:categories})
+          })
+    })
+})
+
+
+
 router.get('/:id',(req,res) => {
 
     Post.findById(req.params.id).populate({path:'author', model:User}).lean().then(post => {
-        Category.find({}).then(categories =>{
+        Category.aggregate([{
+            $lookup: {
+              from: 'posts',
+              localField: '_id',
+              foreignField: 'category',
+              as: 'posts'
+            }
+          },
+          {
+            $project: {
+              _id: 1,
+              name: 1,
+              num_of_posts: { $size: '$posts' }
+            }
+          }
+          ]).then(categories =>{
             Post.find({}).populate({path:'author', model:User}).sort({$natural:-1}).then(posts => {
                 res.render('site/post', {
                     post: post,
-                    categories: categories.map(item => item.toJSON()),
+                    categories: categories,
                     posts: posts.map(item => item.toJSON())
                 })
             })
