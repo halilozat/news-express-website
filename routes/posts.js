@@ -17,7 +17,9 @@ router.get('/new',(req,res) => {
 
 
 router.get('/category/:categoryId', (req,res) => {
-    Post.find({category: req.params.categoryId}).populate({path:'category', model:Category})
+    Post.find({category: req.params.categoryId})
+    .populate({path:'category', model:Category})
+    .populate({ path: 'author', model: User })
     .then(posts =>{
         Category.aggregate([{
             $lookup: {

@@ -13,6 +13,9 @@ router.get('/', (req, res) => {
 //     res.render('admin/index')
 // })
 
+
+//author name: .populate({ path: 'author', model: User })
+
 router.get('/blog', (req, res) => {
   Post.find({}).populate({ path: 'author', model: User }).sort({ $natural: -1 }).then(posts => {
     Category.aggregate([{

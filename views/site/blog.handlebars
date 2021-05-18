@@ -19,7 +19,8 @@
 						<div class="col-md-6">
 							<div class="blog">
 								<div class="blog-img">
-									<img src="{{post_image}}" class="img-fluid">
+									<a href="/posts/{{_id}}"><img src="{{post_image}}" class="img-fluid"></a>
+									
 								</div>
 								<div class="blog-content">
 									<ul class="blog-meta">
@@ -27,8 +28,8 @@
 										<li><i class="fas fa-clock"></i><span class="writer">{{generateDate date 'MMM DD YYYY'}}</span></li>
 										<li><i class="fas fa-comments"></i><span class="writer">13</span></li>
 									</ul>
-									<h3>{{title}}</h3>
-									<p>{{content}}</p>
+									<h3 >{{title}}</h3>
+									<p>{{truncate content 150}}</p>
 									<a href="/posts/{{_id}}">Read More</a>
 								</div>
 							</div>
