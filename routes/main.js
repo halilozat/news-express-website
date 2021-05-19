@@ -9,38 +9,44 @@ router.get('/', (req, res) => {
   res.render('site/index')
 })
 
-// router.get('/admin',(req,res) => {
-//     res.render('admin/index')
-// })
-
-
-//author name: .populate({ path: 'author', model: User })
-
 router.get('/blog', (req, res) => {
-  Post.find({}).populate({ path: 'author', model: User }).sort({ $natural: -1 }).then(posts => {
-    Category.aggregate([{
-      $lookup: {
-        from: 'posts',
-        localField: '_id',
-        foreignField: 'category',
-        as: 'posts'
-      }
-    },
-    {
-      $project: {
-        _id: 1,
-        name: 1,
-        num_of_posts: { $size: '$posts' }
-      }
-    }
-    ]).then(categories => {
-      res.render('site/blog', {
-        posts: posts.map(item => item.toJSON()),
-        categories: categories,
-      });
-    })
 
-  });
+  const postPerPage = 6
+  const page = req.query.page || 1
+
+
+  Post.find({}).populate({ path: 'author', model: User }).sort({ $natural: -1 })
+    .skip((postPerPage * page) - postPerPage)
+    .limit(postPerPage)
+    .then(posts => {
+      Post.countDocuments().then(postCount =>{
+        Category.aggregate([{
+          $lookup: {
+            from: 'posts',
+            localField: '_id',
+            foreignField: 'category',
+            as: 'posts'
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            name: 1,
+            num_of_posts: { $size: '$posts' }
+          }
+        }
+        ]).then(categories => {
+          res.render('site/blog', {
+            posts: posts.map(item => item.toJSON()),
+            categories: categories,
+            current: parseInt(page),
+            pages: Math.ceil(postCount/postPerPage)
+          });
+        })
+      })
+      
+
+    });
 });
 
 
