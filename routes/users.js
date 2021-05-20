@@ -1,48 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/User')
+const userController = require('../controllers/userController')
 
-router.get('/register',(req,res) => {
-    res.render('site/register')
-})
 
-router.post('/register',(req,res) => {
-    User.create(req.body, (error,user) => {
-        req.session.sessionFlash = {
-            type: 'alert alert-success',
-            message: 'New user added successfully'
-        }
-        res.redirect('/users/login')
-    })
-})
 
-router.get('/login',(req,res) => {
-    res.render('site/login')
-})
+router.get('/register',userController.register)
 
-router.post('/login',(req,res) => {
-    const {email, password} = req.body
+router.post('/register', userController.createUser)
 
-    User.findOne({email}, (error,user) => {
-        if(user){
-            if(user.password == password){
-                // USER sessıon
-                req.session.userId = user._id
-                 
-                res.redirect('/')
-            }else {
-                res.redirect('/users/login')
-            }
-        }else{
-            res.redirect('/users/register')
-        } 
-    })
-})
+router.get('/login',userController.login)
 
-router.get('/logout',(req,res) => {
-    req.session.destroy(() => { 
-        res.redirect('/')
-    })
-})
+router.post('/login', userController.loginControl)
+
+router.get('/logout', userController.logout)
 
 module.exports = router
