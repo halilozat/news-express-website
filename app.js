@@ -13,6 +13,10 @@ const { generateDate, limit, truncate, paginate } = require('./helpers/hbs')
 const expressSession = require('express-session')
 const connectMongo = require('connect-mongo')
 const methodOverride = require('method-override')
+const messageMiddleware = require('./middleware/messageMiddleware')
+const displayLinkMiddleware = require('./middleware/displayLinkMiddleware')
+
+
 
 mongoose.connect('mongodb://127.0.0.1/nodenews_db', {
   useNewUrlParser: true,
@@ -30,41 +34,21 @@ app.use(expressSession({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
+
+
 // Flash - Message Middleware
-app.use((req, res, next) => {
-  res.locals.sessionFlash = req.session.sessionFlash
-  delete req.session.sessionFlash
-  next()
-})
-
-
-
+app.use(messageMiddleware)
 
 app.use(fileUpload())
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 
 //DISPLAY LINK Middleware
-
-app.use((req, res, next) => {
-  const { userId } = req.session
-  if (userId) {
-    res.locals = {
-      displayLink: true
-    }
-  } else {
-    res.locals = {
-      displayLink: false
-    }
-  }
-  next()
-
-})
+app.use(displayLinkMiddleware)
 
 
 
 // handlebars helper
-
 const hbs = exphbs.create({
   helpers: {
     generateDate : generateDate,
@@ -82,7 +66,6 @@ app.set('view engine', 'handlebars')
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyParser.json())
 
