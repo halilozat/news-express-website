@@ -1,8 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const Handlebars = require('handlebars')
-const expressHandlebars = require('express-handlebars');
-const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
+// const Handlebars = require('handlebars')
+// const expressHandlebars = require('express-handlebars');
+// const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 const app = express()
 const port = 3005
 const hostname = '127.0.0.1'
