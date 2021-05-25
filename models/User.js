@@ -8,9 +8,5 @@ const UserSchema = new mongoose.Schema({
     password: { type:String, required:true },
 })
 
-// UserSchema.methods.comparePassword = function(plaintext, callback) {
-//     return callback(null, Bcrypt.compareSync(plaintext, this.password));
-// };
-
 
 module.exports = mongoose.model('User', UserSchema)

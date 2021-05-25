@@ -1,14 +1,18 @@
 <section class="page-image page-image-blog md-padding">
-	<h1 class="text-white text-center">BLOG</h1>
+	<h1 class="text-white text-center">NEWS</h1>
 </section>
+<div class="scrolling">
 
+			<marquee onmouseout="this.start();" onmouseover="this.stop();"> <i class="fas fa-newspaper fa-2x "></i>    Breaking news. Breaking News. Breaking News <i class="fas fa-newspaper fa-2x "></i> </marquee>
+
+		</div>
 <!--==========================
     Contact Section
 ============================-->
 <section id="blog" class="md-padding">
 	<div class="container">
 		<div class="row">
-			<main id="main" class="col-md-8">
+			<main id="main" class="col-md-9">
 				{{#if sessionFlash.message}}
 				<div class="{{sessionFlash.type}}">
 				{{sessionFlash.message}}
@@ -16,7 +20,7 @@
 				{{/if}}
 				<div class="row">
 					{{#each posts}}
-					<div class="col-md-6">
+					{{!-- <div class="col-md-12"></div>
 						<div class="blog">
 							<div class="blog-img">
 								<a href="/posts/{{_id}}"><img src="{{post_image}}" class="img-fluid"></a>
@@ -34,7 +38,34 @@
 								<a href="/posts/{{_id}}">Read More</a>
 							</div>
 						</div>
+					</div> --}}
+
+					<div class="col-md-12">
+						<div class="blog">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm">
+										<a href="/posts/{{_id}}"><img src="{{post_image}}" class="img-fluid"></a>
+									</div>
+									<div class="col-sm">
+										<a href="#">
+											<h3>{{title}}</h3>
+										</a>
+										<ul class="blog-meta">
+									<li><i class="fas fa-users"></i><span class="writer">{{author.username}}</span></li>
+									<li><i class="fas fa-clock"></i><span class="writer">{{generateDate date 'MMM DD
+											YYYY'}}</span></li>
+									<li><i class="fas fa-comments"></i><span class="writer">13</span></li>
+								</ul>
+										<p>{{truncate content 150}}</p>
+										<a href="/posts/{{_id}}">Read More</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
+
+
 					{{/each}}
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
