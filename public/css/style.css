@@ -174,37 +174,65 @@ nav.shrink {
 
 
 #hero {
-	text-align: center;
-	color: white;
-	background: linear-gradient( rgba(20, 20, 20, .8), rgba(20, 20, 20, .8)), url("../img/heroImage.jpg");
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center center;
-	background-size: cover;
-	height: 100vh;
+    text-align: center;
+    color: white;
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    height: 100vh;
+
+}
+#hero video{
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+
+}
+#hero .content{
+    position: absolute;
+    z-index: 20;
+    top: 300px;
+    left: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
 }
 
 #hero .container {
-	display: table;
-	height: 100vh;
+
+    display: table;
+    height: 100vh;
+
 }
 
 #hero .intro-text {
-	display: table-cell;
-	vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
+
+
+}
+#hero .intro-text h1{
+    color: #fff;
+    text-shadow: 1px 1px;
+
 }
 
-#hero .intro-heading {
-	font-size: 50px;
-	line-height: 50px;
-	margin-bottom: 25px;
-	font-weight: 200;
+#hero .intro-heading {s
+
+    line-height: 50px;
+    margin-bottom: 25px;
+    font-weight: 200;
 }
 
 #hero .intro-heading span {
-	color: #e74c3c;
-	font-size: 62px;
-	font-family: 'Open Sans', sans-serif;
+    color: #e74c3c;
+    font-size: 62px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 
