@@ -12,21 +12,34 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/">Home</a>
 				</li>
+				
+				
 				<li class="nav-item">
-					<a class="nav-link" href="/admin">Admin Panel</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/blog">Blog</a>
+					<a class="nav-link" href="/blog">News</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/contact">Contact</a>
 				</li>
 				{{#if displayLink}}
-				<li class="nav-item">
-					<a class="nav-link" href="/posts/new">Add Post</a>
+				{{!-- <li class="nav-item">
+					<a class="nav-link" href="/admin">Admin Panel</a>
+				</li> --}}
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Admin</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+						
+						<a class="dropdown-item"  href="/admin">Admin Panel</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="/posts/new">Add Post</a>
+						<a class="dropdown-item" href="/admin/categories">Categories</a>
+						<a class="dropdown-item" href="/admin/posts">Posts</a>
+						
+					</div>
 				</li>
 				{{/if}}
-				{{#unless displayLink}}
+				{{!-- {{#unless displayLink}}
 				<li class="nav-item">
 					<a class="nav-link" href="/users/login">Login</a>
 				</li>
@@ -38,11 +51,26 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/users/logout">Log Out</a>
 				</li>
-				{{/if}}
-				
+				{{/if}} --}}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle padd_right "
+							aria-hidden="true"></i></a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+						{{#unless displayLink}}
+						<a class="dropdown-item" href="/users/login">Login</a>
+						<a class="dropdown-item" href="/users/register">Register</a>
+						{{/unless}}
+						{{#if displayLink}}
+						{{!-- <div class="dropdown-divider"></div> --}}
+						<a class="dropdown-item" href="/users/logout">Log Out</a>
+						{{/if}}
+					</div>
+				</li>
+
 			</ul>
-			
-			
+
+
 		</div>
 	</div>
 </nav>
